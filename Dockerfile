@@ -24,4 +24,4 @@ WORKDIR /linux
 RUN cp arch/arm64/configs/bcm2711_defconfig .config
 
 # Optional: use my security-enhanced config
-#ADD hen_config /linux/.config
+ADD hen_config /linux/.config
