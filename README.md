@@ -31,7 +31,7 @@ Custom Configuration
 
 This section describes what tweaks my configuration applies atop the default Raspberry Pi 4 build config, and for what purpose those changes were made. It should help you decide if you'd like to try my shipped configuration or start from something higher up the chain. 
 
-This config was last updated for version 6.6.22 and can be automatically updated using `make oldconfig` when it's installed as `.config`.
+This config was last updated for version 6.6.30 and can be automatically updated using `make oldconfig` when it's installed as `.config`.
 
 #### Changes to preference or common sense QOL changes
 
@@ -62,6 +62,9 @@ This config was last updated for version 6.6.22 and can be automatically updated
 * Set CONFIG_DEBUG_WX because it's cheap and a great warning to have.
 * Set CONFIG_SCHED_STACK_END_CHECK for a cheap stack corruption check.
 * Set CONFIG_STRICT_DEVMEM and CONFIG_IO_STRICT_DEVMEM to really police the dangerous `/dev/mem` device.
+* Change default CPU governor to `ondemand` which fits more usecases than powersave, at the possible cost of instability during startup of overclocked systems.
+* Enable CONFIG_SHADOW_CALL_STACK new security feature to make return pointer overwrites harder. 
+* Set CONFIG_INIT_STACK_ALL_ZERO, now available in latest source and compilers. This helps prevent uninitialized data bugs. 
 
 #### Changes because uncommon or irrelevant
 
@@ -72,6 +75,7 @@ This config was last updated for version 6.6.22 and can be automatically updated
 * Remove CONFIG_VIRTUALIZATION. We don't have the RAM for this anyway. 
 * Remove CONFIG_RAID6_PQ_BENCHMARK because we're really not likely to be using RAID6, and don't want to pay the cost of benchmarking on every boot. 
 * Remove CONFIG_KALLSYMS_ALL because it's not usually needed, increases kernel size, and might hurt performance and security slightly. 
+* Remove CONFIG_CHECKPOINT_RESTORE. Mainly used for container migration in a cloud setting. 
 
 #### Changes because we aren't a kernel developer
 * Remove CONFIG_PROFILING because we aren't profiling the kernel.
@@ -79,3 +83,9 @@ This config was last updated for version 6.6.22 and can be automatically updated
 * Remove CONFIG_KGDB because we aren't debugging the kernel.
 * Remove CONFIG_FTRACE to disable tracing the kernel.
 * Remove latency measurement system because not interesting in kernel performance measurement, and because it would force us to enable KALLSYMS.
+* Remove CONFIG_GENERIC_IRQ_DEBUGFS, not debugging IRQs.
+* Remove CONFIG_RELAY, no relayfs support usually used for kernel profiling. 
+* Remove PM_DEBUG.
+* Remove CONFIG_BLK_DEBUG_FS.
+* More strongly disable the debugfs using CONFIG_DEBUG_FS. Reduces attack surface and not normally accessed by users.
+* Remove CONFIG_SLUB_DEBUG.

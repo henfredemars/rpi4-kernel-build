@@ -1,5 +1,5 @@
 
-FROM ubuntu:jammy
+FROM ubuntu:latest
 
 # Get up to date for jammy
 RUN apt update
