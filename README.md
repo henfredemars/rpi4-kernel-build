@@ -31,7 +31,7 @@ Custom Configuration
 
 This section describes what tweaks my configuration applies atop the default Raspberry Pi 4 build config, and for what purpose those changes were made. It should help you decide if you'd like to try my shipped configuration or start from something higher up the chain. 
 
-This config was last updated for version 6.6.34 and can be automatically updated using `make oldconfig` when it's installed as `.config`.
+This config was last updated for version 6.6.41 and can be automatically updated using `make oldconfig` when it's installed as `.config`.
 
 #### Changes to preference or common sense QOL changes
 
